@@ -18,7 +18,7 @@ matplotlib
 matplotlib-inline
 nest-asyncio
 numpy
-opencv-python
+opencv-python==4.1.0.25
 packaging
 pandas
 parso
@@ -45,3 +45,11 @@ traitlets
 typing-extensions
 urllib3
 wcwidth
+torch >= 1.7.0
+torchvision >= 0.8.1
+torchaudio >= 0.7.0
+flask
+gevent
+sqlalchemy
+flask_sqlalchemy
+pymysql
