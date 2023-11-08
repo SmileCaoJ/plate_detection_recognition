@@ -1,6 +1,6 @@
 asttokens
 backcall
-charset-normalizer
+charset-normalizer==2.0.12
 cycler
 dataclasses
 debugpy
@@ -10,7 +10,7 @@ fonttools
 idna
 ipykernel
 ipython
-jedi
+jedi==0.17.2
 jupyter-client
 jupyter-core
 kiwisolver
@@ -45,9 +45,9 @@ traitlets
 typing-extensions
 urllib3
 wcwidth
-torch >= 1.7.0
-torchvision >= 0.8.1
-torchaudio >= 0.7.0
+torch==1.10.1
+torchvision==0.11.2
+torchaudio==0.10.1
 flask
 gevent
 sqlalchemy

@@ -33,3 +33,5 @@ ccpd/
 !*.png
 !*.yaml
 !*.md
+!*.ini
+!*.conf
