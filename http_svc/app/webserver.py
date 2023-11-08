@@ -32,5 +32,5 @@ def index():
 
 
 def run(port):
-    server = pywsgi.WSGIServer(('127.0.0.1', int(port)), flask_app)
+    server = pywsgi.WSGIServer(('0.0.0.0', int(port)), flask_app)
     server.serve_forever()

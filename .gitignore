@@ -35,3 +35,4 @@ ccpd/
 !*.md
 !*.ini
 !*.conf
+!Dockerfile

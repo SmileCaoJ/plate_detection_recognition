@@ -21,11 +21,19 @@ docker run --rm -it --network=host bluenviron/mediamtx:latest
 - 利用ffmpeg读取一个视频文件，推流到媒体服务器: 
 docker run --rm -it --network=host -v /input:/input jrottenberg/ffmpeg   -re -stream_loop -1 -i /input/258_480p.mp4 -vcodec copy -acodec copy -f flv  -flvflags no_duration_filesize   rtmp://127.0.0.1:1935/stream
 
-## 启动DetectServer <待容器化>
+## 启动DetectServer
+### 方式1 进程启动
 python detect_server.py --detect_model weights/plate_detect.pt  --rec_model weights/plate_rec_color.pth --video rtmp://192.168.249.130:1935/stream --detect_svc_mode remote
+### 方式2 容器启动
+- cd docker/detect_server && docker build -t detect_server:v1.0.0 .
+- docker run --rm -it --network=host -v /input:/input detect_server:v1.0.0 /bin/sh -c "cd /plate_detection_recognition && python detect_server.py --detect_model weights/plate_detect.pt  --rec_model weights/plate_rec_color.pth --video rtmp://192.168.249.130:1935/stream --detect_svc_mode remote"
 
 ## 启动VideoProcessor和MonitorServer <待容器化>
+### 方式1 进程启动
 python video_processor.py --detect_model weights/plate_detect.pt  --rec_model weights/plate_rec_color.pth --video rtmp://192.168.249.130:1935/stream --detect_svc_mode remote
+### 方式2 容器启动
+- cd docker/video_processor && docker build -t video_processor:v1.0.0 .
+- docker run --rm -it --network=host -v /input:/input video_processor:v1.0.0 /bin/sh -c "cd /plate_detection_recognition && python video_processor.py --detect_model weights/plate_detect.pt  --rec_model weights/plate_rec_color.pth --video rtmp://192.168.249.130:1935/stream --detect_svc_mode remote"
 
 ## 通过浏览器观察结果
 http://127.0.0.1:9080/index.html
