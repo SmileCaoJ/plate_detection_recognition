@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>社区管理</title>
+    </head>
+    <body>
+        <div id="header_div" style="float: left; height: 100%; width: 100%">
+            <h2>社区管理平台</h2>
+        </div>
+
+         <div id="point_select_div" style="float: left; height: 100%; width: 100%">
+            监控点：
+            <select name="app_location_policy">
+              <option value="min_distance">北门入口</option>
+            </select>
+         </div>
+
+        <div id="snap_image_div" style="float: left; height: 100%; width: 860; margin: 20px; border: 2px solid grey;">
+            <img src="" alt="snap" width="800" name="snap_image" id="snap_image">
+        </div>
+
+        <div id="car_info_div" style="float: left; height: 100%; width: 360; ">
+        </div>
+
+        <script type="text/javascript">
+            function refresh_car_info() {
+                $.ajax({
+                  type: "GET",
+                  url: "/api/v1/car/car_info",
+                  success: function (message) {
+                        img_base64 = message.data.img_data;
+                        img_url = 'data:image/png;base64,' + img_base64;
+                        //获取图片元素
+                        var img = $('#snap_image');
+                        //添加时间戳参数，强制刷新图片
+                        img.attr('src', img_url);
+
+                        $("#car_info_div").empty();
+                        $("#car_info_div").append("<h4>车辆信息：</h4>");
+                        $.each(message.data.cars, function(index, item) {
+                            var row = "<h4>车辆" + (index + 1 ) + "</h4>" +
+                                      "车牌： " + item.plate_no +
+                                      "<br>" + "车牌颜色： " + item.plate_color +
+                                      "<br>" + "车主： " + item.owner +
+                                      "<br>" + "状态： " + item.register_status +
+                                      "<br>";
+                            $("#car_info_div").append(row);
+                        });
+                  },
+                  error: function (message) {
+                        img_base64 = '';
+                        img_url = 'data:image/jpeg;base64,' + img_base64;
+                        //获取图片元素
+                        var img = $('#snap_image');
+                        //添加时间戳参数，强制刷新图片
+                        img.attr('src', img_url);
+
+                        $("#car_info_div").empty();
+                  }
+                });
+            }
+
+            setInterval(refresh_car_info, 1000)
+
+        </script>
+    </body>
+</html>

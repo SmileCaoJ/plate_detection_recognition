@@ -36,3 +36,8 @@ ccpd/
 !*.ini
 !*.conf
 !Dockerfile
+!*.html
+!*.ico
+!*.css
+!*.js
+
